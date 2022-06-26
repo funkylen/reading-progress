@@ -4,31 +4,23 @@
     <div class="container">
         <div class="row mb-3">
             <div class="col">
-                <a href="{{ route('books.create') }}" class="btn btn-primary">{{ __('Create Book') }}</a>
+                <a href="{{ route('books.create') }}" class="btn btn-primary w-100">{{ __('Create Book') }}</a>
             </div>
         </div>
 
-        @foreach ($books as $book)
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <div>{{ $book->title }}</div>
-                            <div>{{ $book->author }}</div>
-                            <div>{{ $book->start_page }}</div>
-                        </div>
-                        <div class="card-footer d-flex">
-                            <button class="btn btn-secondary me-3">{{ __('Update book') }}</button>
+        <div class="list-group">
 
-                            {!! Form::open(['route' => ['books.destroy', auth()->id()]]) !!}
-
-                            <x-form.button title="{{ __('Delete Book') }}" type="danger" />
-
-                            {!! Form::close() !!}
-                        </div>
+            @foreach ($books as $book)
+                <a href="{{ route('books.show', $book) }}" class="list-group-item list-group-item-action"
+                    aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ $book->title }}</h5>
                     </div>
-                </div>
-            </div>
-        @endforeach
+                    <p class="mb-1">{{ __('Author') }}: {{ $book->author }}</p>
+                    <small>{{ __('Start Page') }}: {{ $book->start_page }}</small>
+                </a>
+            @endforeach
+
+        </div>
     </div>
 @endsection

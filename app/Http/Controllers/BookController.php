@@ -12,7 +12,7 @@ class BookController extends Controller
 {
     public function index(): View
     {
-        $books = Book::whereUserId(auth()->id())->paginate();
+        $books = Book::whereUserId(auth()->id())->latest()->paginate();
 
         return view('books.index', compact('books'));
     }
@@ -21,7 +21,6 @@ class BookController extends Controller
     {
         return view('books.create');
     }
-
 
     public function store(StoreBookRequest $request): RedirectResponse
     {
@@ -33,48 +32,27 @@ class BookController extends Controller
         return redirect(route('books.show', $book));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Book $book)
+    public function show(Book $book): View
     {
-        //
+        return view('books.show', compact('book'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Book $book)
+    public function edit(Book $book): View
     {
-        //
+        return view('books.edit', compact('book'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBookRequest  $request
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
-        //
+        $book->update($request->validated());
+
+        return redirect(route('books.show', $book));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Book  $book
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Book $book)
+    public function destroy(Book $book): RedirectResponse
     {
-        //
+        $book->delete();
+
+        return redirect(route('books.index'));
     }
 }

@@ -28,3 +28,6 @@ lint:
 
 lint-fix:
 	composer exec phpcbf -- --standard=PSR12 app tests
+
+test:
+	composer exec phpunit -- tests
