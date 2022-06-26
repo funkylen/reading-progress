@@ -1,1 +1,1 @@
-{!! Form::submit($title, ['class' => 'btn btn-' . $type]) !!}
+{!! Form::submit($title, ['class' => implode(' ', ['btn', 'btn-' . $type, $attributes['class']])]) !!}
