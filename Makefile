@@ -1,5 +1,6 @@
 setup-local:
-	cp .env.example .env
+	cp .env.local .env
+	touch database/database.sqlite
 	composer install
 	npm install
 	npm run dev

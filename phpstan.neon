@@ -3,7 +3,8 @@ includes:
 
 parameters:
     checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
     paths:
         - app
         - tests
-    level: 8
+    level: 6
