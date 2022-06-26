@@ -25,16 +25,20 @@ class BookController extends Controller
     public function store(StoreBookRequest $request): RedirectResponse
     {
         $book = Book::create([
-            ...$request->validated(),
+            ...$request->get('book'),
             'user_id' => auth()->id(),
         ]);
+
+        flash(__('Book created.'))->success();
 
         return redirect(route('books.show', $book));
     }
 
     public function show(Book $book): View
     {
-        return view('books.show', compact('book'));
+        $readLogs = $book->readLogs()->orderBy('date', 'desc')->latest()->get();
+
+        return view('books.show', compact('book', 'readLogs'));
     }
 
     public function edit(Book $book): View
@@ -44,7 +48,9 @@ class BookController extends Controller
 
     public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
-        $book->update($request->validated());
+        $book->update($request->get('book'));
+
+        flash(__('Book updated.'))->info();
 
         return redirect(route('books.show', $book));
     }

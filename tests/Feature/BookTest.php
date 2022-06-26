@@ -6,7 +6,6 @@ use App\Models\Book;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class BookTest extends TestCase
@@ -26,30 +25,24 @@ class BookTest extends TestCase
         $this->actingAs($this->user);
     }
 
-    public function testIndex(): void
+    public function pagesProvider(): array
     {
-        $response = $this->get(route('books.index'));
-
-        $response->assertOk();
+        return [
+            ['books.index', false],
+            ['books.create', false],
+            ['books.edit', true],
+            ['books.show', true],
+        ];
     }
 
-    public function testCreate(): void
+    /**
+     * @dataProvider pagesProvider
+     */
+    public function testShowPage(string $routeName, bool $needModel): void
     {
-        $response = $this->get(route('books.create'));
+        $route = $needModel ? route($routeName, $this->books->first()) : route($routeName);
 
-        $response->assertOk();
-    }
-
-    public function testEdit(): void
-    {
-        $response = $this->get(route('books.edit', $this->books->first()));
-
-        $response->assertOk();
-    }
-
-    public function testShow(): void
-    {
-        $response = $this->get(route('books.show', $this->books->first()));
+        $response = $this->get($route);
 
         $response->assertOk();
     }
@@ -57,9 +50,11 @@ class BookTest extends TestCase
     public function testStore(): void
     {
         $body = [
-            'title' => 'Book Title',
-            'author' => 'Book Author',
-            'start_page' => 0,
+            'book' => [
+                'title' => 'Book Title',
+                'author' => 'Book Author',
+                'start_page' => 0,
+            ],
         ];
 
         $response = $this->post(route('books.store'), $body);
@@ -69,7 +64,7 @@ class BookTest extends TestCase
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('books', [
-            ...$body,
+            ...$body['book'],
             'user_id' => $this->user->id,
         ]);
     }
@@ -79,9 +74,11 @@ class BookTest extends TestCase
         $book = $this->books->first();
 
         $body = [
-            'title' => 'Book Title',
-            'author' => 'Book Author',
-            'start_page' => 0,
+            'book' => [
+                'title' => 'Book Title',
+                'author' => 'Book Author',
+                'start_page' => 0,
+            ],
         ];
 
         $response = $this->put(route('books.update', $book), $body);
@@ -91,7 +88,7 @@ class BookTest extends TestCase
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('books', [
-            ...$body,
+            ...$body['book'],
             'id' => $book->id,
             'user_id' => $this->user->id,
         ]);

@@ -39,7 +39,8 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('books.index') ? 'active' : '' }}" href="{{ route('books.index') }}">{{ __('Books') }}</a>
+                                <a class="nav-link {{ request()->routeIs('books.index') ? 'active' : '' }}"
+                                    href="{{ route('books.index') }}">{{ __('Books') }}</a>
                             </li>
                         @endauth
                     </ul>
@@ -85,7 +86,10 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                @include('flash::message')
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

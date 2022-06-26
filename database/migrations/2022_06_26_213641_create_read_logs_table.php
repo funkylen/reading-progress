@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Book;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('read_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('author');
-            $table->foreignIdFor(User::class)->constrained();
-            $table->unsignedInteger('start_page');
+            $table->unsignedInteger('pages_count');
+            $table->foreignIdFor(Book::class)->constrained();
+            $table->date('date');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('read_logs');
     }
 };
