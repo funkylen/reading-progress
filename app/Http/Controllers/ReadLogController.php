@@ -13,6 +13,15 @@ class ReadLogController extends Controller
 {
     public function create(Book $book): View
     {
+        if (session()->has('errors')) {
+            /** @var array $messages */
+            $messages = session()->get('errors')->getMessages();
+
+            collect($messages)
+                ->flatten()
+                ->each(fn($msg) => flash($msg)->error());
+        }
+
         return view('read_logs.create', compact('book'));
     }
 
