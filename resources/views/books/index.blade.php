@@ -11,13 +11,13 @@
 
                 <div class="card g-0 h-100">
                     <div class="row g-0">
-                        <div class="col-md-4 m-auto">
+                        <div class="col-4 m-auto">
                             <div class="p-3">
                                 <img src="{{ asset('images/book.svg') }}" class="card-img-top"
                                      alt="{{ __('Book Preview') }}">
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ Str::limit($book->title, 25) }}</h5>
                                 <p class="card-text"><small

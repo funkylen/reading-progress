@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-2">{{ __('Progress') }}:</div>
                 <div class="col-10">
-                    <x-book.progress :book="$book" />
+                    <x-book.progress :book="$book"/>
                 </div>
             </div>
         </div>
@@ -69,13 +69,12 @@
                         <td class="align-middle">{{ $log->pages_count }}</td>
                         <td class="align-middle">{{ $log->date->format('d.m.Y') }}</td>
                         <td>
+                            <a href="{{ route('books.read_logs.edit', [$book, $log]) }}"
+                               class="btn btn-secondary btn-sm">Edit</a>
 
                             {!! Form::open(['route' => ['books.read_logs.destroy', $book, $log], 'method' => 'DELETE', 'class' => 'd-inline']) !!}
-                            <button type="submit" class="btn btn-link btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             {!! Form::close() !!}
-
-                            <a href="{{ route('books.read_logs.edit', [$book, $log]) }}"
-                               class="btn btn-link btn-sm">Edit</a>
                         </td>
                     </tr>
                 @endforeach

@@ -16,7 +16,7 @@ class BookController extends Controller
             ->whereUserId(auth()->id())
             ->orderBy('is_finished')
             ->latest()
-            ->paginate();
+            ->paginate(12);
 
         return view('books.index', compact('books'));
     }
