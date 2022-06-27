@@ -12,7 +12,10 @@ class BookController extends Controller
 {
     public function index(): View
     {
-        $books = Book::whereUserId(auth()->id())->latest()->paginate();
+        $books = Book::with('readLogs')
+            ->whereUserId(auth()->id())
+            ->latest()
+            ->paginate();
 
         return view('books.index', compact('books'));
     }
@@ -36,9 +39,13 @@ class BookController extends Controller
 
     public function show(Book $book): View
     {
-        $readLogs = $book->readLogs()->orderBy('date', 'desc')->latest()->get();
+        $book->load([
+            'readLogs' => function ($query) {
+                $query->orderBy('date', 'desc')->latest();
+            }
+        ]);
 
-        return view('books.show', compact('book', 'readLogs'));
+        return view('books.show', compact('book'));
     }
 
     public function edit(Book $book): View

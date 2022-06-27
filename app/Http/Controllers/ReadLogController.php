@@ -13,16 +13,29 @@ class ReadLogController extends Controller
 {
     public function create(Book $book): View
     {
-        if (session()->has('errors')) {
-            flash(__("Can't add read log."))->error();
-        }
-
         return view('read_logs.create', compact('book'));
     }
 
     public function store(StoreReadLogRequest $request, Book $book): RedirectResponse
     {
-        $book->readLogs()->create($request->get('read_log'));
+        $book->load('readLogs');
+
+        $readLog = $book->readLogs()->make($request->get('read_log'));
+
+        $pagesLeft = $book->getPagesLeftCount();
+
+        if ($readLog->pages_count > $pagesLeft) {
+            $message = __("Read pages can't be over book pages count.");
+            flash($message)->error();
+            return back()->withErrors(['pages_count' => $message]);
+        }
+
+        $readLog->save();
+
+        if ($readLog->pages_count === $pagesLeft) {
+            $book->is_finished = true;
+            $book->save();
+        }
 
         flash(__('Read log created.'))->success();
 
@@ -36,7 +49,21 @@ class ReadLogController extends Controller
 
     public function update(UpdateReadLogRequest $request, Book $book, ReadLog $readLog): RedirectResponse
     {
-        $readLog->update($request->get('read_log'));
+        $book->load('readLogs');
+
+        $pagesLeft = $book->getPagesLeftCount() + $readLog->pages_count;
+
+        $readLog->fill($request->get('read_log'));
+
+        if ($readLog->pages_count > $pagesLeft) {
+            flash(__("Read pages can't be over book pages count."))->error();
+            return back()->withErrors(['pages_count' => "Read pages can't be over book pages count."]);
+        }
+
+        $readLog->save();
+
+        $book->is_finished = $book->pages_count === $book->readLogs()->sum('pages_count');
+        $book->save();
 
         flash(__('Read log updated.'))->info();
 
@@ -46,6 +73,11 @@ class ReadLogController extends Controller
     public function destroy(Book $book, ReadLog $readLog): RedirectResponse
     {
         $readLog->delete();
+
+        if ($book->is_finished) {
+            $book->is_finished = false;
+            $book->save();
+        }
 
         return redirect(route('books.show', $book));
     }

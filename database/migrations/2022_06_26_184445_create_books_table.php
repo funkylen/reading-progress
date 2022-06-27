@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('author');
             $table->foreignIdFor(User::class)->constrained();
             $table->unsignedInteger('start_page');
+            $table->unsignedInteger('pages_count');
+            $table->boolean('is_finished');
             $table->timestamps();
             $table->softDeletes();
         });

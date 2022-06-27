@@ -18,9 +18,11 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->title(),
+            'title' => $this->faker->sentence(),
             'author' => $this->faker->firstName() . ' ' . $this->faker->lastName(),
             'start_page' => 0,
+            'pages_count' => 300,
+            'is_finished' => false,
             'user_id' => fn() => User::factory()->create(),
         ];
     }

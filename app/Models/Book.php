@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,12 @@ class Book extends Model
         'author',
         'user_id',
         'start_page',
+        'pages_count',
+        'is_finished',
+    ];
+
+    protected $attributes = [
+        'is_finished' => false,
     ];
 
     public function user(): BelongsTo
@@ -28,5 +35,34 @@ class Book extends Model
     public function readLogs(): HasMany
     {
         return $this->hasMany(ReadLog::class);
+    }
+
+    public function getCurrentPage(): int
+    {
+        if (!$this->relationLoaded('readLogs')) {
+            throw new \Exception(__('Load relation first! Use ::with("readLogs").'));
+        }
+
+        return $this->start_page + $this->readLogs->sum('pages_count');
+    }
+
+    public function getPagesLeftCount(): int
+    {
+        return $this->pages_count - $this->getCurrentPage();
+    }
+
+    public function getProgressPercent(): float
+    {
+        return round($this->getCurrentPage() * 100 / $this->pages_count, 2);
+    }
+
+    public function scopeFinished(Builder $query): Builder
+    {
+        return $query->where('is_finished', true);
+    }
+
+    public function scopeInProgress(Builder $query): Builder
+    {
+        return $query->where('is_finished', false);
     }
 }

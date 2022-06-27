@@ -1,30 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mb-3">
-        <div class="col">
-            <a href="{{ route('books.create') }}" class="btn btn-primary w-100">{{ __('Create Book') }}</a>
-        </div>
+    <div class="mb-3">
+        <a href="{{ route('books.create') }}" class="btn btn-primary w-100">{{ __('Create Book') }}</a>
     </div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <div class="list-group">
+    <section id="books" class="row row-cols-lg-3 row-cols-1 gy-3 mb-3">
+        @foreach ($books as $book)
+            <div class="col">
 
-                @foreach ($books as $book)
-                    <a href="{{ route('books.show', $book) }}" class="list-group-item list-group-item-action"
-                        aria-current="true">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ $book->title }}</h5>
+                <div class="card g-0 h-100">
+                    <div class="row g-0">
+                        <div class="col-md-4 m-auto">
+                            <div class="p-3">
+                                <img src="{{ asset('images/book.svg') }}" class="card-img-top" alt="{{ __('Book Preview') }}">
+                            </div>
                         </div>
-                        <p class="mb-1">{{ __('Author') }}: {{ $book->author }}</p>
-                        <small>{{ __('Start Page') }}: {{ $book->start_page }}</small>
-                    </a>
-                @endforeach
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ Str::limit($book->title, 25) }}</h5>
+                                <p class="card-text"><small class="text-muted">{{ Str::limit($book->author, 30) }}</small></p>
 
+                                <div class="progress mb-3">
+                                    <div class="progress-bar" role="progressbar"
+                                         style="width: {{ $book->getProgressPercent() }}%"
+                                         aria-valuenow="{{ $book->getCurrentPage() }}"
+                                         aria-valuemin="0" aria-valuemax="{{ $book->pages_count }}"
+                                    >
+                                    </div>
+                                </div>
+
+                                <div class="card-text">
+                                    <a href="{{ route('books.read_logs.create', $book) }}"
+                                       class="btn btn-primary">{{ __('Add log') }}</a>
+                                    <a href="{{ route('books.show', $book) }}" class="btn btn-secondary">{{ __('More') }}</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        @endforeach
+    </section>
 
     <div class="row">
         <div class="col">

@@ -17,6 +17,7 @@ class StoreBookRequest extends FormRequest
             'book.title' => 'required|string',
             'book.author' => 'required|string',
             'book.start_page' => 'required|integer|min:0',
+            'book.pages_count' => 'required|integer|min:1',
         ];
     }
 }

@@ -20,6 +20,7 @@ class ReadLog extends Model
 
     protected $casts = [
         'date' => 'date:d-m-Y',
+        'pages_count' => 'integer',
     ];
 
     public function book(): BelongsTo

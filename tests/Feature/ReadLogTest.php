@@ -22,9 +22,15 @@ class ReadLogTest extends TestCase
         parent::setUp();
 
         $this->user = User::factory()->create();
-        $this->book = Book::factory()->for($this->user)->create();
+
+        $this->book = Book::factory()->for($this->user)->create([
+            'pages_count' => 300,
+            'start_page' => 0,
+        ]);
+
         $this->logs = ReadLog::factory()->for($this->book)->count(3)->create([
             'date' => now()->format('d-m-Y'),
+            'pages_count' => 10,
         ]);
 
         $this->actingAs($this->user);
@@ -73,6 +79,31 @@ class ReadLogTest extends TestCase
         ]);
     }
 
+    public function testStoreAndFinishBook(): void
+    {
+        $body = [
+            'read_log' => [
+                'pages_count' => $this->book->pages_count - $this->logs->sum('pages_count'),
+                'date' => now()->format('d-m-Y'),
+            ],
+        ];
+
+        $response = $this->post(route('books.read_logs.store', $this->book), $body);
+
+        $response->assertRedirect();
+
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('read_logs', [
+            ...$body['read_log'],
+        ]);
+
+        $this->assertDatabaseHas('books', [
+            'id' => $this->book->id,
+            'is_finished' => true,
+        ]);
+    }
+
     public function testUpdate(): void
     {
         $log = $this->logs->first();
@@ -84,7 +115,7 @@ class ReadLogTest extends TestCase
             ],
         ];
 
-        $response = $this->put(route('books.read_logs.update', ['book' => $this->book, 'read_log' => $log]), $body);
+        $response = $this->put(route('books.read_logs.update', [$this->book, $log]), $body);
 
         $response->assertRedirect();
 
@@ -93,6 +124,64 @@ class ReadLogTest extends TestCase
         $this->assertDatabaseHas('read_logs', [
             ...$body['read_log'],
             'id' => $log->id,
+        ]);
+    }
+
+    public function testUpdateAndFinishBook(): void
+    {
+        $book = Book::factory()->create(['pages_count' => 10, 'is_finished' => false]);
+        $readLog = ReadLog::factory()->for($book)->create(['pages_count' => 9]);
+
+        $body = [
+            'read_log' => [
+                'pages_count' => $book->pages_count,
+                'date' => now()->format('d-m-Y'),
+            ],
+        ];
+
+        $response = $this->put(route('books.read_logs.update', [$book, $readLog]), $body);
+
+        $response->assertRedirect();
+
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('read_logs', [
+            ...$body['read_log'],
+            'id' => $readLog->id,
+        ]);
+
+        $this->assertDatabaseHas('books', [
+            'id' => $book->id,
+            'is_finished' => true,
+        ]);
+    }
+
+    public function testUpdateAndUnFinishBook(): void
+    {
+        $book = Book::factory()->create(['pages_count' => 10, 'is_finished' => true]);
+        $readLog = ReadLog::factory()->for($book)->create(['pages_count' => 10]);
+
+        $body = [
+            'read_log' => [
+                'pages_count' => 5,
+                'date' => now()->format('d-m-Y'),
+            ],
+        ];
+
+        $response = $this->put(route('books.read_logs.update', [$book, $readLog]), $body);
+
+        $response->assertRedirect();
+
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('read_logs', [
+            ...$body['read_log'],
+            'id' => $readLog->id,
+        ]);
+
+        $this->assertDatabaseHas('books', [
+            'id' => $book->id,
+            'is_finished' => false,
         ]);
     }
 
@@ -107,5 +196,24 @@ class ReadLogTest extends TestCase
         $response->assertSessionHasNoErrors();
 
         $this->assertSoftDeleted('read_logs', ['id' => $log->id]);
+    }
+
+    public function testDestroyAndUnfinishBook(): void
+    {
+        $book = Book::factory()->create(['pages_count' => 10, 'is_finished' => true]);
+        $readLog = ReadLog::factory()->for($book)->create(['pages_count' => 10]);
+
+        $response = $this->delete(route('books.read_logs.destroy', [$book, $readLog]));
+
+        $response->assertRedirect();
+
+        $response->assertSessionHasNoErrors();
+
+        $this->assertSoftDeleted('read_logs', ['id' => $readLog->id]);
+
+        $this->assertDatabaseHas('books', [
+            'id' => $book->id,
+            'is_finished' => false,
+        ]);
     }
 }
