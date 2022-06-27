@@ -5,6 +5,9 @@ setup-local:
 	npm install
 	npm run dev
 	php artisan migrate --seed
+	php artisan ide-helper:generate
+	php artisan ide-helper:models -n
+	php artisan ide-helper:meta
 
 install:
 	composer install
