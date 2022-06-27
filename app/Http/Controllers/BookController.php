@@ -14,6 +14,7 @@ class BookController extends Controller
     {
         $books = Book::with('readLogs')
             ->whereUserId(auth()->id())
+            ->orderBy('is_finished')
             ->latest()
             ->paginate();
 

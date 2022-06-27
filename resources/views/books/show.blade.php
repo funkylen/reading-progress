@@ -1,24 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mb-3">
-        <div class="col-md-2">
-            <img src="{{ asset('images/book.svg') }}" class="img-thumbnail p-5" {{ __('Book Preview') }}">
+    <div class="row mb-3 gy-3 gy-xxl-0">
+        <div class="col-xxl-2">
+            <img src="{{ asset('images/book.svg') }}" class="img-thumbnail p-5" alt="{{ __('Book Preview') }}">
         </div>
-        <div class="col-md-7 mb-3">
-            <h1>{{ $book->title }}</h1>
-            <h2>{{ $book->author }}</h2>
-            <div>{{ __('Start Page') }}: {{ $book->start_page }}</div>
-            <div>{{ __('Pages Count') }}: {{ $book->pages_count }}</div>
-            <div>{{ __('Current Page') }}: {{ $book->getCurrentPage() }}</div>
-            <div>{{ __('Is Finished') }}: {{ $book->is_finished ? 'Yes' : 'No' }}</div>
+        <div class="col-xxl-7">
+            <h2>{{ $book->title }}</h2>
+            <h3>{{ $book->author }}</h3>
+            <div class="row">
+                <div class="col-2">{{ __('Start Page') }}:</div>
+                <div class="col-10">{{ $book->start_page }}</div>
+            </div>
+            <div class="row">
+                <div class="col-2">{{ __('Pages Count') }}:</div>
+                <div class="col-10">{{ $book->pages_count }}</div>
+            </div>
+            <div class="row">
+                <div class="col-2">{{ __('Current Page') }}:</div>
+                <div class="col-10">{{ $book->getCurrentPage() }}</div>
+            </div>
+            <div class="row">
+                <div class="col-2">{{ __('Is Finished') }}:</div>
+                <div class="col-10">{{ $book->is_finished ? 'Yes' : 'No' }}</div>
+            </div>
+            <div class="row">
+                <div class="col-2">{{ __('Progress') }}:</div>
+                <div class="col-10">
+                    <x-book.progress :book="$book" />
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-xxl-3">
             <div class="d-grid gap-2">
-                <a href="{{ route('books.read_logs.create', $book) }}"
-                   class="btn btn-primary me-3 w-100">{{ __('Add log') }}</a>
+                @unless($book->is_finished)
+                    <a href="{{ route('books.read_logs.create', $book) }}"
+                       class="btn btn-primary me-3 w-100">{{ __('Add log') }}</a>
+                @endunless
 
-                <a href="{{ route('books.edit', $book) }}" class="btn w-100 btn-secondary me-3">{{ __('Edit book') }}</a>
+                <a href="{{ route('books.edit', $book) }}"
+                   class="btn w-100 btn-secondary me-3">{{ __('Edit book') }}</a>
 
                 {!! Form::open(['route' => ['books.destroy', $book], 'method' => 'DELETE']) !!}
 

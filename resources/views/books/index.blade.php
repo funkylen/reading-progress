@@ -13,27 +13,27 @@
                     <div class="row g-0">
                         <div class="col-md-4 m-auto">
                             <div class="p-3">
-                                <img src="{{ asset('images/book.svg') }}" class="card-img-top" alt="{{ __('Book Preview') }}">
+                                <img src="{{ asset('images/book.svg') }}" class="card-img-top"
+                                     alt="{{ __('Book Preview') }}">
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ Str::limit($book->title, 25) }}</h5>
-                                <p class="card-text"><small class="text-muted">{{ Str::limit($book->author, 30) }}</small></p>
+                                <p class="card-text"><small
+                                        class="text-muted">{{ Str::limit($book->author, 30) }}</small></p>
 
-                                <div class="progress mb-3">
-                                    <div class="progress-bar" role="progressbar"
-                                         style="width: {{ $book->getProgressPercent() }}%"
-                                         aria-valuenow="{{ $book->getCurrentPage() }}"
-                                         aria-valuemin="0" aria-valuemax="{{ $book->pages_count }}"
-                                    >
-                                    </div>
+                                <div class="mb-3">
+                                    <x-book.progress :book="$book"/>
                                 </div>
 
                                 <div class="card-text">
-                                    <a href="{{ route('books.read_logs.create', $book) }}"
-                                       class="btn btn-primary">{{ __('Add log') }}</a>
-                                    <a href="{{ route('books.show', $book) }}" class="btn btn-secondary">{{ __('More') }}</a>
+                                    @unless($book->is_finished)
+                                        <a href="{{ route('books.read_logs.create', $book) }}"
+                                           class="btn btn-primary">{{ __('Add log') }}</a>
+                                    @endif
+                                    <a href="{{ route('books.show', $book) }}"
+                                       class="btn btn-secondary">{{ __('More') }}</a>
                                 </div>
 
                             </div>
