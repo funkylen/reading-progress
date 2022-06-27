@@ -5,9 +5,7 @@ setup-local:
 	npm install
 	npm run dev
 	php artisan migrate --seed
-	php artisan ide-helper:generate
-	php artisan ide-helper:models -n
-	php artisan ide-helper:meta
+	make ide-helper
 
 install:
 	composer install
@@ -34,3 +32,8 @@ lint-fix:
 
 test:
 	composer exec phpunit -- tests
+
+ide-helper:
+	php artisan ide-helper:generate
+	php artisan ide-helper:models -n
+	php artisan ide-helper:meta
