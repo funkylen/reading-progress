@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mb-3">
-        <a href="{{ route('books.create') }}" class="btn btn-primary w-100">{{ __('Create Book') }}</a>
+        <a href="{{ route('books.create') }}" class="btn btn-primary w-100">{{ __('book.create') }}</a>
     </div>
 
     <section id="books" class="row row-cols-lg-3 row-cols-1 gy-3 mb-3">
@@ -14,7 +14,7 @@
                         <div class="col-4 m-auto">
                             <div class="p-3">
                                 <img src="{{ asset('images/book.svg') }}" class="card-img-top"
-                                     alt="{{ __('Book Preview') }}">
+                                     alt="{{ __('book.cover') }}">
                             </div>
                         </div>
                         <div class="col-8">
@@ -30,10 +30,10 @@
                                 <div class="card-text">
                                     @unless($book->is_finished)
                                         <a href="{{ route('books.read_logs.create', $book) }}"
-                                           class="btn btn-primary">{{ __('Add log') }}</a>
+                                           class="btn btn-primary">{{ __('read_log.create') }}</a>
                                     @endif
                                     <a href="{{ route('books.show', $book) }}"
-                                       class="btn btn-secondary">{{ __('More') }}</a>
+                                       class="btn btn-secondary">{{ __('book.more') }}</a>
                                 </div>
 
                             </div>

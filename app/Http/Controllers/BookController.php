@@ -32,7 +32,7 @@ class BookController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        flash(__('Book created.'))->success();
+        flash(__('book.created'))->success();
 
         return redirect(route('books.show', $book));
     }
@@ -57,7 +57,7 @@ class BookController extends Controller
     {
         $book->update($request->get('book'));
 
-        flash(__('Book updated.'))->info();
+        flash(__('book.updated'))->info();
 
         return redirect(route('books.show', $book));
     }

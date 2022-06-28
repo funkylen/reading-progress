@@ -46,7 +46,7 @@ class ReadLogController extends Controller
             $book->save();
         }
 
-        flash(__('Read log created.'))->success();
+        flash(__('read_log.created'))->success();
 
         return redirect(route('books.show', $book));
     }
@@ -65,8 +65,9 @@ class ReadLogController extends Controller
         $readLog->fill($request->get('read_log'));
 
         if ($readLog->pages_count > $pagesLeft) {
-            flash(__("Read pages can't be over book pages count."))->error();
-            return back()->withErrors(['pages_count' => "Read pages can't be over book pages count."]);
+            $message = __("read_log.pages_count_over_book_pages_count");
+            flash($message)->error();
+            return back()->withErrors(['pages_count' => $message]);
         }
 
         $readLog->save();
@@ -74,7 +75,7 @@ class ReadLogController extends Controller
         $book->is_finished = $book->pages_count === $book->readLogs()->sum('pages_count');
         $book->save();
 
-        flash(__('Read log updated.'))->info();
+        flash(__('read_log.updated'))->info();
 
         return redirect(route('books.show', $book));
     }
