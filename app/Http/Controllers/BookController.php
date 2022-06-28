@@ -14,9 +14,8 @@ class BookController extends Controller
     {
         $books = Book::with('readLogs')
             ->whereUserId(auth()->id())
-            ->orderBy('is_finished')
-            ->latest()
-            ->paginate(12);
+            ->orderByLogActivity()
+            ->paginate(9);
 
         return view('books.index', compact('books'));
     }
