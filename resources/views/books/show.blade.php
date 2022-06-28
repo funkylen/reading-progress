@@ -71,11 +71,11 @@
                             <td class="align-middle">{{ $log->date->format('d.m.Y') }}</td>
                             <td>
                                 <a href="{{ route('books.read_logs.edit', [$book, $log]) }}"
-                                   class="btn btn-secondary btn-sm">{{ __('read_log.edit') }}</a>
+                                   class="btn btn-outline-secondary btn-sm">{{ __('read_log.edit') }}</a>
 
                                 {!! Form::open(['route' => ['books.read_logs.destroy', $book, $log], 'method' => 'DELETE', 'class' => 'd-inline']) !!}
                                 <button type="submit"
-                                        class="btn btn-danger btn-sm">{{ __('read_log.destroy') }}</button>
+                                        class="btn btn-outline-danger btn-sm">{{ __('read_log.destroy') }}</button>
                                 {!! Form::close() !!}
                             </td>
                         </tr>

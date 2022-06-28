@@ -11,13 +11,13 @@
 
                 <div class="card g-0 h-100">
                     <div class="row g-0">
-                        <div class="col-3 m-auto">
-                            <div class="p-3">
+                        <div class=" d-none d-xxl-block col-xxl-3 m-auto">
+                            <div class="p-5">
                                 <img src="{{ asset('images/book.svg') }}" class="card-img-top"
                                      alt="{{ __('book.cover') }}">
                             </div>
                         </div>
-                        <div class="col-9">
+                        <div class="col col-xxl-9">
                             <div class="card-body">
                                 <h5 class="card-title">{{ Str::limit($book->title, 38) }}</h5>
                                 <p class="card-text"><small
@@ -31,12 +31,12 @@
                                     @unless($book->is_finished)
                                         <div class="col">
                                             <a href="{{ route('books.read_logs.create', $book) }}"
-                                               class="btn btn-primary w-100">{{ __('read_log.create') }}</a>
+                                               class="btn btn-outline-primary w-100">{{ __('read_log.create') }}</a>
                                         </div>
                                     @endif
                                     <div class="col">
                                         <a href="{{ route('books.show', $book) }}"
-                                           class="btn btn-secondary w-100">{{ __('book.more') }}</a>
+                                           class="btn btn-outline-secondary w-100">{{ __('book.more') }}</a>
                                     </div>
                                 </div>
 
