@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', __('book.index'))
+
 @section('content')
     <div class="mb-3">
         <a href="{{ route('books.create') }}" class="btn btn-primary w-100">{{ __('book.create') }}</a>

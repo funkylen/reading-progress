@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $book->title)
+
 @section('content')
     <div class="row mb-3 gy-3 gy-xxl-0">
         <div class="col-xxl-2 d-lg-block d-none">
@@ -71,11 +73,11 @@
                             <td class="align-middle">{{ $log->date->format('d.m.Y') }}</td>
                             <td>
                                 <a href="{{ route('books.read_logs.edit', [$book, $log]) }}"
-                                   class="btn btn-outline-secondary btn-sm">{{ __('read_log.edit') }}</a>
+                                   class="btn btn-outline-secondary btn-sm">{{ __('Edit') }}</a>
 
                                 {!! Form::open(['route' => ['books.read_logs.destroy', $book, $log], 'method' => 'DELETE', 'class' => 'd-inline']) !!}
                                 <button type="submit"
-                                        class="btn btn-outline-danger btn-sm">{{ __('read_log.destroy') }}</button>
+                                        class="btn btn-outline-danger btn-sm">{{ __('Delete') }}</button>
                                 {!! Form::close() !!}
                             </td>
                         </tr>
