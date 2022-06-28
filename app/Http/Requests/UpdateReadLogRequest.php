@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Traits\LocalizedAttributes;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateReadLogRequest extends FormRequest
 {
+    use LocalizedAttributes;
+
     public function authorize(): bool
     {
         return true;

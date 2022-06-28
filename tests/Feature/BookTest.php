@@ -78,7 +78,7 @@ class BookTest extends TestCase
             'book' => [
                 'title' => 'Book Title',
                 'author' => 'Book Author',
-                'start_page' => 0,
+                'pages_count' => 1,
             ],
         ];
 

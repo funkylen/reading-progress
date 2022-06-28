@@ -53,6 +53,10 @@ class Book extends Model
 
     public function getProgressPercent(): float
     {
+        if ($this->pages_count === 0) {
+            return 0;
+        }
+
         return round($this->getCurrentPage() * 100 / $this->pages_count, 2);
     }
 

@@ -3,11 +3,10 @@
 namespace App\View\Components\Form;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\View\Component;
+use Illuminate\Support\Str;
 
-class Number extends Component
+class Number extends InputComponent
 {
-    public string $name;
     public string $label;
     public ?int $defaultValue;
     public ?string $placeholder;
@@ -31,6 +30,7 @@ class Number extends Component
             'label' => $this->label,
             'defaultValue' => $this->defaultValue,
             'placeholder' => $this->placeholder,
+            'errorName' => $this->getErrorName(),
         ]);
     }
 }

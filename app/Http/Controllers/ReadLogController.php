@@ -15,15 +15,6 @@ class ReadLogController extends Controller
     {
         $book->load('readLogs');
 
-        if (session()->has('errors')) {
-            /** @var array $messages */
-            $messages = session()->get('errors')->getMessages();
-
-            collect($messages)
-                ->flatten()
-                ->each(fn($msg) => flash($msg)->error());
-        }
-
         return view('read_logs.create', compact('book'));
     }
 
@@ -37,7 +28,6 @@ class ReadLogController extends Controller
 
         if ($currentPage > $book->pages_count) {
             $message = __("read_log.error_current_page_over_book_pages_count");
-            flash($message)->error();
             return back()->withErrors(['current_page' => $message]);
         }
 
@@ -70,8 +60,7 @@ class ReadLogController extends Controller
 
         if ($readLog->pages_count > $pagesLeft) {
             $message = __("read_log.pages_count_over_book_pages_count");
-            flash($message)->error();
-            return back()->withErrors(['pages_count' => $message]);
+            return back()->withErrors(['read_log.pages_count' => $message]);
         }
 
         $readLog->save();

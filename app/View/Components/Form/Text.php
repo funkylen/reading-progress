@@ -3,11 +3,9 @@
 namespace App\View\Components\Form;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\View\Component;
 
-class Text extends Component
+class Text extends InputComponent
 {
-    public string $name;
     public string $label;
     public ?string $defaultValue;
 
@@ -24,6 +22,7 @@ class Text extends Component
             'name' => $this->name,
             'label' => $this->label,
             'defaultValue' => $this->defaultValue,
+            'errorName' => $this->getErrorName(),
         ]);
     }
 }

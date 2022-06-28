@@ -4,11 +4,9 @@ namespace App\View\Components\Form;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
-use Illuminate\View\Component;
 
-class Date extends Component
+class Date extends InputComponent
 {
-    public string $name;
     public string $label;
     public Carbon $defaultDate;
 
@@ -25,6 +23,7 @@ class Date extends Component
             'name' => $this->name,
             'label' => $this->label,
             'defaultDate' => $this->defaultDate,
+            'errorName' => $this->getErrorName(),
         ]);
     }
 }
