@@ -5,7 +5,8 @@
 @section('content')
     <div class="row mb-3 gy-3 gy-xxl-0">
         <div class="col-xxl-2 d-lg-block d-none">
-            <img src="{{ asset('images/book.svg') }}" class="img-thumbnail p-5 bg-white h-100" alt="{{ __('book.cover') }}">
+            <img src="{{ asset('images/book.svg') }}" class="img-thumbnail p-5 bg-white h-100"
+                 alt="{{ __('book.cover') }}">
         </div>
         <div class="col-12 col-xxl-7">
             <h2>{{ $book->title }}</h2>
@@ -43,9 +44,20 @@
                 <a href="{{ route('books.edit', $book) }}"
                    class="btn w-100 btn-secondary me-3">{{ __('book.edit') }}</a>
 
+                <button type="button"
+                        class="btn btn-danger w-100"
+                        data-bs-toggle="modal"
+                        data-bs-target="#destroy-book">
+                    {{ __('book.destroy') }}
+                </button>
+
                 {!! Form::open(['route' => ['books.destroy', $book], 'method' => 'DELETE']) !!}
 
-                <x-form.button title="{{ __('book.destroy') }}" type="danger" class="w-100"/>
+                <x-modal id="destroy-book"
+                         title="{{ __('book.destroy') }}"
+                         message="{{ __('Are you sure you want to delete this resource?') }}"
+                         submit-btn-type="danger"
+                         submit-btn-title="{{ __('book.destroy') }}"/>
 
                 {!! Form::close() !!}
             </div>
@@ -75,9 +87,20 @@
                                 <a href="{{ route('books.read_logs.edit', [$book, $log]) }}"
                                    class="btn btn-outline-secondary btn-sm">{{ __('Edit') }}</a>
 
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#destroy-read-log">
+                                    {{ __('Delete') }}
+                                </button>
+
                                 {!! Form::open(['route' => ['books.read_logs.destroy', $book, $log], 'method' => 'DELETE', 'class' => 'd-inline']) !!}
-                                <button type="submit"
-                                        class="btn btn-outline-danger btn-sm">{{ __('Delete') }}</button>
+
+                                <x-modal id="destroy-read-log"
+                                         title="{{ __('read_log.destroy') }}"
+                                         message="{{ __('Are you sure you want to delete this resource?') }}"
+                                         submit-btn-type="danger"
+                                         submit-btn-title="{{ __('Delete') }}"/>
                                 {!! Form::close() !!}
                             </td>
                         </tr>
