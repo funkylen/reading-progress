@@ -5,35 +5,39 @@
         <a href="{{ route('books.create') }}" class="btn btn-primary w-100">{{ __('book.create') }}</a>
     </div>
 
-    <section id="books" class="row row-cols-lg-3 row-cols-1 gy-3 mb-3">
+    <section id="books" class="row row-cols-lg-2 row-cols-1 gy-3 mb-3">
         @foreach ($books as $book)
             <div class="col">
 
                 <div class="card g-0 h-100">
                     <div class="row g-0">
-                        <div class="col-4 m-auto">
+                        <div class="col-3 m-auto">
                             <div class="p-3">
                                 <img src="{{ asset('images/book.svg') }}" class="card-img-top"
                                      alt="{{ __('book.cover') }}">
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-9">
                             <div class="card-body">
-                                <h5 class="card-title">{{ Str::limit($book->title, 25) }}</h5>
+                                <h5 class="card-title">{{ Str::limit($book->title, 38) }}</h5>
                                 <p class="card-text"><small
-                                        class="text-muted">{{ Str::limit($book->author, 30) }}</small></p>
+                                        class="text-muted">{{ Str::limit($book->author, 50) }}</small></p>
 
                                 <div class="mb-3">
                                     <x-book.progress :book="$book"/>
                                 </div>
 
-                                <div class="card-text">
+                                <div class="card-text row row-cols-xxl-2 row-cols-1 gy-xxl-0 gy-2">
                                     @unless($book->is_finished)
-                                        <a href="{{ route('books.read_logs.create', $book) }}"
-                                           class="btn btn-primary">{{ __('read_log.create') }}</a>
+                                        <div class="col">
+                                            <a href="{{ route('books.read_logs.create', $book) }}"
+                                               class="btn btn-primary w-100">{{ __('read_log.create') }}</a>
+                                        </div>
                                     @endif
-                                    <a href="{{ route('books.show', $book) }}"
-                                       class="btn btn-secondary">{{ __('book.more') }}</a>
+                                    <div class="col">
+                                        <a href="{{ route('books.show', $book) }}"
+                                           class="btn btn-secondary w-100">{{ __('book.more') }}</a>
+                                    </div>
                                 </div>
 
                             </div>
