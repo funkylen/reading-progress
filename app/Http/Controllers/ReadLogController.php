@@ -31,17 +31,19 @@ class ReadLogController extends Controller
 
         $readLog = $book->readLogs()->make($request->get('read_log'));
 
-        $pagesLeft = $book->getPagesLeftCount();
+        $currentPage = (int) $request->get('current_page');
 
-        if ($readLog->pages_count > $pagesLeft) {
-            $message = __("Read pages can't be over book pages count.");
+        if ($currentPage > $book->pages_count) {
+            $message = __("read_log.error_current_page_over_book_pages_count");
             flash($message)->error();
-            return back()->withErrors(['pages_count' => $message]);
+            return back()->withErrors(['current_page' => $message]);
         }
+
+        $readLog->pages_count = $currentPage - $book->readLogs->sum('pages_count');
 
         $readLog->save();
 
-        if ($readLog->pages_count === $pagesLeft) {
+        if ($currentPage === $book->pages_count) {
             $book->is_finished = true;
             $book->save();
         }

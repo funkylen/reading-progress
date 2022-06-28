@@ -62,8 +62,8 @@ class ReadLogTest extends TestCase
     public function testStore(): void
     {
         $body = [
+            'current_page' => 200,
             'read_log' => [
-                'pages_count' => 225,
                 'date' => now()->format('d-m-Y'),
             ],
         ];
@@ -75,6 +75,7 @@ class ReadLogTest extends TestCase
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('read_logs', [
+            'pages_count' => $body['current_page'] - $this->logs->sum('pages_count'),
             ...$body['read_log'],
         ]);
     }
@@ -82,8 +83,8 @@ class ReadLogTest extends TestCase
     public function testStoreAndFinishBook(): void
     {
         $body = [
+            'current_page' => $this->book->pages_count,
             'read_log' => [
-                'pages_count' => $this->book->pages_count - $this->logs->sum('pages_count'),
                 'date' => now()->format('d-m-Y'),
             ],
         ];
@@ -95,6 +96,7 @@ class ReadLogTest extends TestCase
         $response->assertSessionHasNoErrors();
 
         $this->assertDatabaseHas('read_logs', [
+            'pages_count' => $body['current_page'] - $this->logs->sum('pages_count'),
             ...$body['read_log'],
         ]);
 

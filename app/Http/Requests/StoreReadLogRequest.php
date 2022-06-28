@@ -14,7 +14,7 @@ class StoreReadLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'read_log.pages_count' => 'required|integer|min:1',
+            'current_page' => 'required|integer|min:1',
             'read_log.date' => 'required|date',
         ];
     }
