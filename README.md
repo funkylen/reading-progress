@@ -1,5 +1,7 @@
 # Read Progress App
 
+[![PHP CI](https://github.com/funkylen/read-progress/actions/workflows/ci.yml/badge.svg)](https://github.com/funkylen/read-progress/actions/workflows/ci.yml)
+
 ## Описание
 
 Приложение для отслеживания прогресса чтения
