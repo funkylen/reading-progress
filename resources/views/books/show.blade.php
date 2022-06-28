@@ -2,31 +2,31 @@
 
 @section('content')
     <div class="row mb-3 gy-3 gy-xxl-0">
-        <div class="col-xxl-2">
-            <img src="{{ asset('images/book.svg') }}" class="img-thumbnail p-5" alt="{{ __('Book Preview') }}">
+        <div class="col-xxl-2 d-lg-block d-none">
+            <img src="{{ asset('images/book.svg') }}" class="img-thumbnail p-5 bg-white" alt="{{ __('Book Preview') }}">
         </div>
-        <div class="col-xxl-7">
+        <div class="col-12 col-xxl-7">
             <h2>{{ $book->title }}</h2>
             <h3>{{ $book->author }}</h3>
             <div class="row">
-                <div class="col-2">{{ __('Start Page') }}:</div>
-                <div class="col-10">{{ $book->start_page }}</div>
+                <div class="col-4 col-xxl-2">{{ __('Start Page') }}:</div>
+                <div class="col-8 col-xxl-10">{{ $book->start_page }}</div>
             </div>
             <div class="row">
-                <div class="col-2">{{ __('Pages Count') }}:</div>
-                <div class="col-10">{{ $book->pages_count }}</div>
+                <div class="col-4 col-xxl-2">{{ __('Pages Count') }}:</div>
+                <div class="col-8 col-xxl-10">{{ $book->pages_count }}</div>
             </div>
             <div class="row">
-                <div class="col-2">{{ __('Current Page') }}:</div>
-                <div class="col-10">{{ $book->getCurrentPage() }}</div>
+                <div class="col-4 col-xxl-2">{{ __('Current Page') }}:</div>
+                <div class="col-8 col-xxl-10">{{ $book->getCurrentPage() }}</div>
             </div>
             <div class="row">
-                <div class="col-2">{{ __('Is Finished') }}:</div>
-                <div class="col-10">{{ $book->is_finished ? 'Yes' : 'No' }}</div>
+                <div class="col-4 col-xxl-2">{{ __('Is Finished') }}:</div>
+                <div class="col-8 col-xxl-10">{{ $book->is_finished ? 'Yes' : 'No' }}</div>
             </div>
             <div class="row">
-                <div class="col-2">{{ __('Progress') }}:</div>
-                <div class="col-10">
+                <div class="col-4 col-xxl-2">{{ __('Progress') }}:</div>
+                <div class="col-8 col-xxl-10">
                     <x-book.progress :book="$book"/>
                 </div>
             </div>
@@ -52,7 +52,7 @@
 
     <div class="row mb-3">
         <div class="col">
-            <table class="table">
+            <table class="table bg-white">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
