@@ -9,6 +9,7 @@
             <x-read-log.form
                 label="{{ __('read_log.create') }}"
                 buttonLabel="{{ __('read_log.create') }}"
+                :book="$book"
                 :form-options="['route' => ['books.read_logs.store', $book]]"/>
 
         </div>

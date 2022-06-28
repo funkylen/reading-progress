@@ -13,6 +13,8 @@ class ReadLogController extends Controller
 {
     public function create(Book $book): View
     {
+        $book->load('readLogs');
+
         if (session()->has('errors')) {
             /** @var array $messages */
             $messages = session()->get('errors')->getMessages();

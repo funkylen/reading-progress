@@ -13,6 +13,7 @@
         @else
             <x-form.number
                 name="current_page"
+                :placeholder="$book->getCurrentPage()"
                 label="{{ __('read_log.current_page') }}"
                 class="mb-3"/>
         @endif
