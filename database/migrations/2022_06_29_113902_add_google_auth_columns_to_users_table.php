@@ -15,9 +15,10 @@ return new class extends Migration {
         Schema::table('users', function (Blueprint $table) {
             if (app()->environment('testing')) {
                 $table->string('auth_type')->nullable();
+            } else {
+                $table->string('auth_type');
             }
 
-            $table->string('auth_type');
             $table->string('google_id')->nullable();
             $table->string('avatar')->nullable();
         });
