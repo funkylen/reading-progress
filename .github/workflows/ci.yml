@@ -36,6 +36,9 @@ jobs:
     - name: Generate encryption key
       run: php artisan key:generate
 
+    - name: Reset Laravel cache
+      run: php artisan config:cache
+
     - name: Lint
       run: make lint
 

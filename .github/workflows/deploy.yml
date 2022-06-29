@@ -73,13 +73,13 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          envs: PROJECT_DIR, ENV_FILE
+          envs: PROJECT_DIR, ENV_FILE, STORAGE_APP_DIR
           script_stop: true
           script: |
-            cp .env.production .env
+            cp $ENV_FILE .env
             cd $PROJECT_DIR
             rm -rf storage/app
-            ln -sf $STORAGE_APP_DIR $$PROJECT_DIR/storage/app
+            ln -sf $STORAGE_APP_DIR $PROJECT_DIR/storage/app
             chown -R www-data:www-data $PROJECT_DIR
             chmod -R ug+rwx storage bootstrap/cache
             php artisan storage:link
