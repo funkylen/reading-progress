@@ -1,0 +1,90 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_run:
+    workflows: ["PHP CI"]
+    types:
+      - completed
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_DIR: "/var/www/readingprogress"
+      STORAGE_APP_DIR: "/root/readingprogress/storage/app"
+      ENV_FILE: "/root/readprogress/.env"
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      # -----------
+      # --- NPM ---
+      # -----------
+      - name: Install npm dependencies
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run production
+
+      # ----------------
+      # --- Composer ---
+      # ----------------
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer Dependecies
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+
+      # ----------------------------
+      # --- Copy new project dir ---
+      # ----------------------------
+      - name: Copy new project dir
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          rm: true
+          source: "."
+          target: $PROJECT_DIR
+
+
+      # --------------------------
+      # --- Update project dir ---
+      # --------------------------
+      - name: Update project
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          envs: PROJECT_DIR, ENV_FILE
+          script_stop: true
+          script: |
+            cp .env.production .env
+            cd $PROJECT_DIR
+            rm -rf storage/app
+            ln -sf $STORAGE_APP_DIR $$PROJECT_DIR/storage/app
+            chown -R www-data:www-data $PROJECT_DIR
+            chmod -R ug+rwx storage bootstrap/cache
+            php artisan storage:link
+            php artisan clear-compiled
+            php artisan optimize
+            php artisan migrate --force
