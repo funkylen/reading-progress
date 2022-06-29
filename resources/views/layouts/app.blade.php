@@ -58,9 +58,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Яндекс.Браузер -->
-    <meta name="viewport" content="ya-title=#ffffff,ya-dock=fade">
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
