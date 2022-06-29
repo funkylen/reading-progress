@@ -40,6 +40,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $auth_type
+ * @property string|null $google_id
+ * @property string|null $avatar
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAuthType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAvatar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogleId($value)
  */
 class User extends Authenticatable
 {

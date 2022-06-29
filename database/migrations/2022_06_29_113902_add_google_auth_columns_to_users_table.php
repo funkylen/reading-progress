@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            if (app()->environment('testing')) {
+            if (config('database.default') === 'sqlite') {
                 $table->string('auth_type')->nullable();
             } else {
                 $table->string('auth_type');
