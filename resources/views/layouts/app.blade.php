@@ -21,6 +21,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Yandex Verification -->
+    <meta name="yandex-verification" content="5946fc6fcecc47ac" />
 </head>
 
 <body>
