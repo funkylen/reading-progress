@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -35,5 +39,36 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function googleRedirect(): RedirectResponse
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googleCallback(): RedirectResponse
+    {
+        $googleUser = Socialite::driver('google')->user();
+
+        $user = User::firstOrCreate(
+            ['email' => $googleUser->getEmail()],
+            [
+                'auth_type' => 'google',
+                'google_id' => $googleUser->getId(),
+                'avatar' => $googleUser->getAvatar(),
+                'name' => $googleUser->getName(),
+                'password' => bcrypt(\Illuminate\Support\Str::random(32)),
+            ]
+        );
+
+        if ($user->auth_type !== 'google') {
+            $message = __('user.auth_type_error');
+            flash($message)->error();
+            return redirect(route('login'))->withErrors(['user.auth_type' => $message]);
+        }
+
+        Auth::login($user, true);
+
+        return redirect(route('books.index'));
     }
 }

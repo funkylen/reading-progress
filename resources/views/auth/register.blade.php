@@ -8,6 +8,17 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
+
+                    <div class="row">
+                        <div class="col d-grid gap-2">
+                            <a href="{{ route('auth.google.redirect') }}" class="btn btn-danger">
+                                <span class="fab fa-google"></span>
+                                Google</a>
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

@@ -65,6 +65,17 @@
                             </div>
                         </div>
                     </form>
+
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col d-grid gap-2">
+                            <a href="{{ route('auth.google.redirect') }}" class="btn btn-danger">
+                                <span class="fab fa-google"></span>
+                                Google</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
