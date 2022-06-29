@@ -14,10 +14,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      PROJECT_DIR: "/var/www/readingprogress"
-      STORAGE_APP_DIR: "/root/readingprogress/storage/app"
-      ENV_FILE: "/root/readprogress/.env"
 
     steps:
 
@@ -63,7 +59,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           rm: true
           source: "."
-          target: $PROJECT_DIR
+          target: "/var/www/readingprogress"
 
 
       # --------------------------
@@ -71,6 +67,10 @@ jobs:
       # --------------------------
       - name: Update project
         uses: appleboy/ssh-action@master
+        env:
+          PROJECT_DIR: "/var/www/readingprogress"
+          STORAGE_APP_DIR: "/root/readingprogress/storage/app"
+          ENV_FILE: "/root/readprogress/.env"
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
