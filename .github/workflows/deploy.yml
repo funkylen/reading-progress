@@ -5,8 +5,6 @@ on:
     workflows: ["PHP CI"]
     types:
       - completed
-  push:
-    branches: [ "main" ]
 
 jobs:
   deploy:

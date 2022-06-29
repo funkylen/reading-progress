@@ -31,13 +31,7 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
     - name: Copy env file
-      run: cp .env.example .env
-
-    - name: Generate encryption key
-      run: php artisan key:generate
-
-    - name: Reset Laravel cache
-      run: php artisan config:cache
+      run: cp .env.testing .env
 
     - name: Lint
       run: make lint
