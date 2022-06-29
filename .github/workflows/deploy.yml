@@ -74,8 +74,8 @@ jobs:
           envs: PROJECT_DIR, ENV_FILE, STORAGE_APP_DIR
           script_stop: true
           script: |
-            cp $ENV_FILE .env
             cd $PROJECT_DIR
+            cp $ENV_FILE .env
             rm -rf storage/app
             ln -sf $STORAGE_APP_DIR $PROJECT_DIR/storage/app
             chown -R www-data:www-data $PROJECT_DIR

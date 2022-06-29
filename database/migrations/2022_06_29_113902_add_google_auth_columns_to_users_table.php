@@ -13,13 +13,13 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('auth_type');
-            $table->string('google_id')->nullable();
-            $table->string('avatar')->nullable();
-
             if (app()->environment('testing')) {
                 $table->string('auth_type')->nullable();
             }
+
+            $table->string('auth_type');
+            $table->string('google_id')->nullable();
+            $table->string('avatar')->nullable();
         });
     }
 
