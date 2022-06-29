@@ -66,7 +66,7 @@ jobs:
         env:
           PROJECT_DIR: "/var/www/readingprogress"
           STORAGE_APP_DIR: "/root/readingprogress/storage/app"
-          ENV_FILE: "/root/readprogress/.env"
+          ENV_FILE: "/root/readingprogress/.env"
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}

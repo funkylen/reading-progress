@@ -16,6 +16,10 @@ return new class extends Migration {
             $table->string('auth_type');
             $table->string('google_id')->nullable();
             $table->string('avatar')->nullable();
+
+            if (app()->environment('testing')) {
+                $table->string('auth_type')->nullable();
+            }
         });
     }
 
