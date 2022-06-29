@@ -1,16 +1,14 @@
 name: PHP CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  - push
+  - pull_request
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  ci:
 
     runs-on: ubuntu-latest
 
