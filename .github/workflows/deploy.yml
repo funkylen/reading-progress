@@ -1,6 +1,10 @@
 name: Deploy
 
 on:
+  workflow_run:
+    workflows: ["PHP CI"]
+    types:
+      - completed
   push:
     branches: [ "main" ]
 
@@ -48,18 +52,18 @@ jobs:
           php-version: '8.1'
       - run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
 
-#      # ----------------------------
-#      # --- Copy new project dir ---
-#      # ----------------------------
-#      - name: Copy new project dir
-#        uses: appleboy/scp-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          password: ${{ secrets.PASSWORD }}
-#          rm: true
-#          source: "."
-#          target: "/var/www/readingprogress"
+      # ----------------------------
+      # --- Copy new project dir ---
+      # ----------------------------
+      - name: Copy new project dir
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          rm: true
+          source: "."
+          target: "/var/www/readingprogress"
 
 
       # --------------------------
@@ -69,15 +73,13 @@ jobs:
         uses: appleboy/ssh-action@master
         env:
           PROJECT_DIR: "/var/www/readingprogress"
-          PROJECT_NEW_DIR: "/var/www/readingprogress-new"
-          PROJECT_CURRENT_DIR: "/var/www/readingprogress-current"
           STORAGE_APP_DIR: "/root/readingprogress/storage/app"
           ENV_FILE: "/root/readingprogress/.env"
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          envs: PROJECT_DIR, PROJECT_NEW_DIR, PROJECT_CURRENT_DIR ENV_FILE, STORAGE_APP_DIR
+          envs: PROJECT_DIR, ENV_FILE, STORAGE_APP_DIR
           script_stop: true
           script: |
             cd $PROJECT_DIR
