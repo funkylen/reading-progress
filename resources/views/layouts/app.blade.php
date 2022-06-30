@@ -143,6 +143,15 @@
                 @yield('content')
             </div>
         </main>
+
+        <footer class="border-top fixed-bottom py-3">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="d-block text-muted">© {{ now()->year }} {{ config('app.name') }}</span>
+                    <a href="{{ route('feedback.create') }}" class="d-block btn btn-warning">{{ __('Suggestions for improvement') }}</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <!-- Yandex.Metrika counter -->
