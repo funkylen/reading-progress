@@ -18,3 +18,12 @@
     font-size: 20px;
     line-height: 1;
 }
+
+header {
+    z-index: 1;
+}
+
+main {
+    padding-top: 5rem;
+    min-height: calc(100vh - 5rem);
+}
