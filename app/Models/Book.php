@@ -107,16 +107,4 @@ class Book extends Model
     {
         return $query->where('is_finished', false);
     }
-
-    public function scopeOrderByLogActivity(Builder $query): Builder
-    {
-        return $query
-            ->select('books.*')
-            ->distinct('books.id')
-            ->leftJoin('read_logs', 'books.id', '=', 'read_logs.book_id')
-            ->orderBy('books.id')
-            ->orderBy('books.is_finished')
-            ->orderBy('read_logs.created_at', 'desc')
-            ->orderBy('books.created_at', 'desc');
-    }
 }

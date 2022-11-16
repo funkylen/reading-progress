@@ -13,8 +13,12 @@ class BookController extends Controller
     public function index(): View
     {
         $books = Book::with('readLogs')
-            ->whereUserId(auth()->id())
-            ->orderByLogActivity()
+            ->select('books.*')
+            ->leftJoin('read_logs', 'books.id', '=', 'read_logs.book_id')
+            ->where('books.user_id', auth()->id())
+            ->where('books.is_finished', false)
+            ->orderByDesc('read_logs.created_at')
+            ->orderByDesc('books.created_at')
             ->paginate(6);
 
         return view('books.index', compact('books'));
