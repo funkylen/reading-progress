@@ -1,14 +1,13 @@
 setup-local:
 	cp .env.local .env
 	touch database/database.sqlite
-	composer install
-	npm install
-	npm run dev
+	make install
 	php artisan migrate --seed
 	make ide-helper
 
 install:
 	composer install
+	npm ci
 	npm run dev
 
 migrate:
