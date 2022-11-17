@@ -20,29 +20,34 @@ class ReadLogController extends Controller
 
     public function store(StoreReadLogRequest $request, Book $book): RedirectResponse
     {
-        $book->load('readLogs');
+        return \DB::transaction(function () use ($book, $request) {
+            $book->load('readLogs');
 
-        $readLog = $book->readLogs()->make($request->get('read_log'));
+            $readLog = $book->readLogs()->make($request->get('read_log'));
 
-        $currentPage = (int) $request->get('current_page');
+            $currentPage = (int)$request->get('current_page');
 
-        if ($currentPage > $book->pages_count) {
-            $message = __("read_log.error_current_page_over_book_pages_count");
-            return back()->withErrors(['current_page' => $message]);
-        }
+            if ($currentPage > $book->pages_count) {
+                $message = __("read_log.error_current_page_over_book_pages_count");
+                return back()->withErrors(['current_page' => $message]);
+            }
 
-        $readLog->pages_count = $currentPage - $book->readLogs->sum('pages_count');
+            $readLog->pages_count = $currentPage - $book->readLogs->sum('pages_count');
 
-        $readLog->save();
+            $readLog->save();
 
-        if ($currentPage === $book->pages_count) {
-            $book->is_finished = true;
+            $book->last_read_at = now();
+
+            if ($currentPage === $book->pages_count) {
+                $book->is_finished = true;
+            }
+
             $book->save();
-        }
 
-        flash(__('read_log.created'))->success();
+            flash(__('read_log.created'))->success();
 
-        return redirect(route('books.show', $book));
+            return redirect(route('books.show', $book));
+        });
     }
 
     public function edit(Book $book, ReadLog $readLog): View

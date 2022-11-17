@@ -13,9 +13,9 @@ class BookController extends Controller
     public function index(): View
     {
         $books = Book::with('readLogs')
-            ->list()
-            ->where('books.user_id', auth()->id())
-            ->where('books.is_finished', false)
+            ->orderByDesc('last_read_at')
+            ->where('user_id', auth()->id())
+            ->where('is_finished', false)
             ->paginate(6);
 
         return view('books.index', compact('books'));
@@ -24,9 +24,9 @@ class BookController extends Controller
     public function getFinishedPage(): View
     {
         $books = Book::query()
-            ->list()
-            ->where('books.user_id', auth()->id())
-            ->where('books.is_finished', true)
+            ->orderByDesc('last_read_at')
+            ->where('user_id', auth()->id())
+            ->where('is_finished', true)
             ->paginate(6);
 
         return view('books.finished', compact('books'));

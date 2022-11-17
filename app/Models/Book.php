@@ -60,10 +60,15 @@ class Book extends Model
         'start_page',
         'pages_count',
         'is_finished',
+        'last_read_at',
     ];
 
     protected $attributes = [
         'is_finished' => false,
+    ];
+
+    protected $casts = [
+        'last_read_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -107,15 +112,5 @@ class Book extends Model
     public function scopeInProgress(Builder $query): void
     {
         $query->where('is_finished', false);
-    }
-
-    public function scopeList(Builder $query): void
-    {
-        $query
-            ->select('books.*')
-            ->leftJoin('read_logs', 'books.id', '=', 'read_logs.book_id')
-            ->orderByDesc('read_logs.created_at')
-            ->orderByDesc('books.created_at')
-            ->groupBy('books.id');
     }
 }
