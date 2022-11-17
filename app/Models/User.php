@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Orchid\Platform\Models\User as Authenticatable;
 
 /**
@@ -70,6 +71,9 @@ class User extends Authenticatable
         'email',
         'password',
         'permissions',
+        'auth_type',
+        'google_id',
+        'avatar',
     ];
 
     /**
@@ -81,6 +85,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'permissions',
+        'auth_type',
+        'google_id',
     ];
 
     /**
@@ -117,4 +123,13 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+    protected $attributes = [
+        'auth_type' => 'email',
+    ];
+
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
 }
