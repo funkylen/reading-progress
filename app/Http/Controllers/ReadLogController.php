@@ -36,7 +36,7 @@ class ReadLogController extends Controller
 
             $readLog->save();
 
-            $book->last_read_at = now();
+            $book->touch();
 
             if ($currentPage === $book->pages_count) {
                 $book->is_finished = true;

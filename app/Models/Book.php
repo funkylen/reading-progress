@@ -60,15 +60,10 @@ class Book extends Model
         'start_page',
         'pages_count',
         'is_finished',
-        'last_read_at',
     ];
 
     protected $attributes = [
         'is_finished' => false,
-    ];
-
-    protected $casts = [
-        'last_read_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

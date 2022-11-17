@@ -13,7 +13,7 @@ class BookController extends Controller
     public function index(): View
     {
         $books = Book::with('readLogs')
-            ->orderByDesc('last_read_at')
+            ->orderByDesc('updated_at')
             ->where('user_id', auth()->id())
             ->where('is_finished', false)
             ->paginate(6);
@@ -24,7 +24,7 @@ class BookController extends Controller
     public function getFinishedPage(): View
     {
         $books = Book::query()
-            ->orderByDesc('last_read_at')
+            ->orderByDesc('updated_at')
             ->where('user_id', auth()->id())
             ->where('is_finished', true)
             ->paginate(6);
