@@ -13,15 +13,23 @@ class BookController extends Controller
     public function index(): View
     {
         $books = Book::with('readLogs')
-            ->select('books.*')
-            ->leftJoin('read_logs', 'books.id', '=', 'read_logs.book_id')
+            ->list()
             ->where('books.user_id', auth()->id())
             ->where('books.is_finished', false)
-            ->orderByDesc('read_logs.created_at')
-            ->orderByDesc('books.created_at')
             ->paginate(6);
 
         return view('books.index', compact('books'));
+    }
+
+    public function getFinishedPage(): View
+    {
+        $books = Book::query()
+            ->list()
+            ->where('books.user_id', auth()->id())
+            ->where('books.is_finished', true)
+            ->paginate(6);
+
+        return view('books.finished', compact('books'));
     }
 
     public function create(): View
