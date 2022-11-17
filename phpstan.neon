@@ -8,3 +8,5 @@ parameters:
         - app
         - tests
     level: 6
+    excludePaths:
+        - app/Orchid/*
