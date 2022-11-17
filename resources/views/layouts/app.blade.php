@@ -95,6 +95,10 @@
                             <a class="nav-link {{ request()->routeIs('books.index') ? 'active' : '' }}"
                                href="{{ route('books.index') }}">{{ __('book.index') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('books.finished') ? 'active' : '' }}"
+                               href="{{ route('books.finished') }}">{{ __('book.finished') }}</a>
+                        </li>
                     @endauth
                 </ul>
 

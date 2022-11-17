@@ -29,6 +29,7 @@ class BookTest extends TestCase
     {
         return [
             ['books.index', false],
+            ['books.finished', false],
             ['books.create', false],
             ['books.edit', true],
             ['books.show', true],

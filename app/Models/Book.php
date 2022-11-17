@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Book withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Book withoutTrashed()
  * @mixin \Eloquent
+ * @method static Builder|Book list()
  */
 class Book extends Model
 {
@@ -98,25 +99,23 @@ class Book extends Model
         return round($this->getCurrentPage() * 100 / $this->pages_count, 2);
     }
 
-    public function scopeFinished(Builder $query): Builder
+    public function scopeFinished(Builder $query): void
     {
-        return $query->where('is_finished', true);
+        $query->where('is_finished', true);
     }
 
-    public function scopeInProgress(Builder $query): Builder
+    public function scopeInProgress(Builder $query): void
     {
-        return $query->where('is_finished', false);
+        $query->where('is_finished', false);
     }
 
-    public function scopeOrderByLogActivity(Builder $query): Builder
+    public function scopeList(Builder $query): void
     {
-        return $query
+        $query
             ->select('books.*')
-            ->distinct('books.id')
             ->leftJoin('read_logs', 'books.id', '=', 'read_logs.book_id')
-            ->orderBy('books.id')
-            ->orderBy('books.is_finished')
-            ->orderBy('read_logs.created_at', 'desc')
-            ->orderBy('books.created_at', 'desc');
+            ->orderByDesc('read_logs.created_at')
+            ->orderByDesc('books.created_at')
+            ->distinct('books.id');
     }
 }

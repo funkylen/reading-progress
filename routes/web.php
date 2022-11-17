@@ -19,4 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::redirect('/', 'books');
     Route::resource('books', BookController::class);
     Route::resource('books.read_logs', ReadLogController::class)->except('index');
+
+    Route::get('/finished_books', [BookController::class, 'getFinishedPage'])->name('books.finished');
 });

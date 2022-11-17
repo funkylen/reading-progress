@@ -34,5 +34,5 @@ test:
 
 ide-helper:
 	php artisan ide-helper:generate
-	php artisan ide-helper:models -n
+	php artisan ide-helper:models -W
 	php artisan ide-helper:meta
