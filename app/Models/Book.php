@@ -115,6 +115,7 @@ class Book extends Model
             ->select('books.*')
             ->leftJoin('read_logs', 'books.id', '=', 'read_logs.book_id')
             ->orderByDesc('read_logs.created_at')
-            ->distinct('books.id');
+            ->orderByDesc('books.created_at')
+            ->groupBy('books.id');
     }
 }
