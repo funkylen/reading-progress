@@ -19,14 +19,17 @@ class FeedbackTest extends TestCase
 
     public function testStore(): void
     {
-        $body = Feedback::factory()->make()->toArray();
+        $body = [
+            'feedback' => Feedback::factory()->make()->toArray(),
+            'captcha' => 'captcha',
+        ];
 
-        $response = $this->post(route('feedback.store'), ['feedback' => $body]);
+        $response = $this->post(route('feedback.store'), $body);
 
         $response->assertRedirect();
 
         $response->assertSessionHasNoErrors();
 
-        $this->assertDatabaseHas('feedback', $body);
+        $this->assertDatabaseHas('feedback', $body['feedback']);
     }
 }

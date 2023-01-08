@@ -6,14 +6,13 @@ use Illuminate\Contracts\View\View;
 
 class Text extends InputComponent
 {
-    public string $label;
-    public ?string $defaultValue;
-
-    public function __construct(string $name, string $label = null, string $defaultValue = null)
-    {
-        $this->name = $name;
+    public function __construct(
+        public string $name,
+        public ?string $label,
+        public ?string $defaultValue = null,
+        public ?string $placeholder = null
+    ) {
         $this->label = $label ?? $name;
-        $this->defaultValue = $defaultValue;
     }
 
     public function render(): View
@@ -22,6 +21,7 @@ class Text extends InputComponent
             'name' => $this->name,
             'label' => $this->label,
             'defaultValue' => $this->defaultValue,
+            'placeholder' => $this->placeholder,
             'errorName' => $this->getErrorName(),
         ]);
     }

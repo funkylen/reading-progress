@@ -133,4 +133,6 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    'captcha' => 'Неправильно введен код с картинки',
+    'insert_captcha' => 'Введите код с картинки ниже',
 ];

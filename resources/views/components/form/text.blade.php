@@ -3,6 +3,7 @@
 
     {!! Form::text($name, $defaultValue, [
         'class' => $errors->has($errorName) ? 'form-control is-invalid' : 'form-control',
+        'placeholder' => $placeholder,
     ]) !!}
 
     @error($errorName)
