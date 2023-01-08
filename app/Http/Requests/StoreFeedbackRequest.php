@@ -27,6 +27,7 @@ class StoreFeedbackRequest extends FormRequest
             'feedback.name' => 'required|string',
             'feedback.email' => 'required|email',
             'feedback.content' => 'required|string',
+            'captcha' => 'required|captcha',
         ];
     }
 }
