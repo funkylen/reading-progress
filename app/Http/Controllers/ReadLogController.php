@@ -32,6 +32,11 @@ class ReadLogController extends Controller
                 return back()->withErrors(['current_page' => $message]);
             }
 
+            if ($currentPage <= $book->getCurrentPage()) {
+                $message = __("read_log.pages_count_lower_than_current_page");
+                return back()->withErrors(['current_page' => $message]);
+            }
+
             $readLog->pages_count = $currentPage - $book->readLogs->sum('pages_count');
 
             $readLog->save();
