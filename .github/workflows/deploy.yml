@@ -34,18 +34,6 @@ jobs:
       - run: npm ci
       - run: npm run production
 
-      # ----------------
-      # --- Composer ---
-      # ----------------
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-
       - name: Install Composer Dependecies
         uses: shivammathur/setup-php@v2
         with:
