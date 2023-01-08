@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Book;
 use App\Models\ReadLog;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -59,14 +60,20 @@ class ReadLogTest extends TestCase
         $response->assertOk();
     }
 
-    public function testStore(): void
+    private function makeStoreBody(int $currentPage, ?Carbon $date = null): array
     {
-        $body = [
-            'current_page' => 200,
+        return [
+            'current_page' => $currentPage,
             'read_log' => [
-                'date' => now()->format('d-m-Y'),
+                'date' => ($date ?? now())->format('d-m-Y'),
             ],
         ];
+    }
+
+
+    public function testStore(): void
+    {
+        $body = $this->makeStoreBody(currentPage: 200);
 
         $response = $this->post(route('books.read_logs.store', $this->book), $body);
 
@@ -82,12 +89,7 @@ class ReadLogTest extends TestCase
 
     public function testStoreAndFinishBook(): void
     {
-        $body = [
-            'current_page' => $this->book->pages_count,
-            'read_log' => [
-                'date' => now()->format('d-m-Y'),
-            ],
-        ];
+        $body = $this->makeStoreBody($this->book->pages_count);
 
         $response = $this->post(route('books.read_logs.store', $this->book), $body);
 
@@ -106,16 +108,23 @@ class ReadLogTest extends TestCase
         ]);
     }
 
+    private function makeUpdateBody(int $pagesCount, Carbon $date = null): array
+    {
+        return [
+            'read_log' => [
+                'pages_count' => $pagesCount,
+                'date' => ($date ?? now())->format('d-m-Y'),
+            ],
+        ];
+    }
+
     public function testUpdate(): void
     {
         $log = $this->logs->first();
 
-        $body = [
-            'read_log' => [
-                'pages_count' => 225,
-                'date' => now()->format('d-m-Y'),
-            ],
-        ];
+        $body = $this->makeUpdateBody(
+            pagesCount: 225
+        );
 
         $response = $this->put(route('books.read_logs.update', [$this->book, $log]), $body);
 
@@ -134,12 +143,9 @@ class ReadLogTest extends TestCase
         $book = Book::factory()->create(['pages_count' => 10, 'is_finished' => false]);
         $readLog = ReadLog::factory()->for($book)->create(['pages_count' => 9]);
 
-        $body = [
-            'read_log' => [
-                'pages_count' => $book->pages_count,
-                'date' => now()->format('d-m-Y'),
-            ],
-        ];
+        $body = $this->makeUpdateBody(
+            pagesCount: $book->pages_count
+        );
 
         $response = $this->put(route('books.read_logs.update', [$book, $readLog]), $body);
 
@@ -163,12 +169,9 @@ class ReadLogTest extends TestCase
         $book = Book::factory()->create(['pages_count' => 10, 'is_finished' => true]);
         $readLog = ReadLog::factory()->for($book)->create(['pages_count' => 10]);
 
-        $body = [
-            'read_log' => [
-                'pages_count' => 5,
-                'date' => now()->format('d-m-Y'),
-            ],
-        ];
+        $body = $this->makeUpdateBody(
+            pagesCount: 5
+        );
 
         $response = $this->put(route('books.read_logs.update', [$book, $readLog]), $body);
 
@@ -217,5 +220,20 @@ class ReadLogTest extends TestCase
             'id' => $book->id,
             'is_finished' => false,
         ]);
+    }
+
+    public function testStoreLowerThanCurrentPage(): void
+    {
+        $book = Book::factory()->create(['pages_count' => 100]);
+        $currentPage = 10;
+        $readLog = ReadLog::factory()->for($book)->create(['pages_count' => $currentPage]);
+
+        $body = $this->makeStoreBody(
+            currentPage: 5
+        );
+
+        $response = $this->post(route('books.read_logs.store', [$book, $readLog]), $body);
+
+        $response->assertSessionHasErrors(['current_page']);
     }
 }
