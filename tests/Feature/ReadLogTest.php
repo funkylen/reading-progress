@@ -108,11 +108,11 @@ class ReadLogTest extends TestCase
         ]);
     }
 
-    private function makeUpdateBody(int $pagesCount, Carbon $date = null)
+    private function makeUpdateBody(int $pagesCount, Carbon $date = null): array
     {
         return [
             'read_log' => [
-                'pages_count' => 225,
+                'pages_count' => $pagesCount,
                 'date' => ($date ?? now())->format('d-m-Y'),
             ],
         ];
