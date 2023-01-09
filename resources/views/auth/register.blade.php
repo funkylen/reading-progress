@@ -47,9 +47,9 @@
 
         <hr class="my-4">
 
-        <small class="text-muted d-block text-center">
+        <div class="text-muted d-block text-center">
             <a href="{{ route('login') }}">{{ __('Log in') }}</a>
-        </small>
+        </div>
 
     </form>
 
