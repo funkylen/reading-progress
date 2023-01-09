@@ -42,12 +42,15 @@
                 @endunless
 
                 <a href="{{ route('books.edit', $book) }}"
-                   class="btn w-100 btn-secondary me-3">{{ __('book.edit') }}</a>
+                   class="btn w-100 btn-secondary me-3">
+                    <i class="fa-solid fa-pen"></i> {{ __('book.edit') }}
+                </a>
 
                 <button type="button"
                         class="btn btn-danger w-100"
                         data-bs-toggle="modal"
                         data-bs-target="#destroy-book">
+                    <i class="fa-solid fa-trash"></i>
                     {{ __('book.destroy') }}
                 </button>
 
@@ -85,13 +88,15 @@
                             <td class="align-middle">{{ $log->date->format('d.m.Y') }}</td>
                             <td>
                                 <a href="{{ route('books.read_logs.edit', [$book, $log]) }}"
-                                   class="btn btn-outline-secondary btn-sm">{{ __('Edit') }}</a>
+                                   class="btn btn-outline-secondary btn-sm">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
 
                                 <button type="button"
                                         class="btn btn-outline-danger btn-sm"
                                         data-bs-toggle="modal"
                                         data-bs-target="#destroy-read-log">
-                                    {{ __('Delete') }}
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
 
                                 {!! Form::open(['route' => ['books.read_logs.destroy', $book, $log], 'method' => 'DELETE', 'class' => 'd-inline']) !!}

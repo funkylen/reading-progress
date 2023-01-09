@@ -41,16 +41,16 @@
         </div>
         <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">{{__('Register')}}</button>
 
-        <small class="text-muted">
-            <span>{{ __('Already registered?') }}</span>
-            <a href="{{ route('login') }}">{{ __('Log in') }}</a>
-        </small>
-
-        <hr class="my-4">
-
         <div class="d-flex justify-content-center">
             <a href="{{ route('auth.google.redirect') }}" class="fab fa-google"></a>
         </div>
+
+        <hr class="my-4">
+
+        <small class="text-muted d-block text-center">
+            <a href="{{ route('login') }}">{{ __('Log in') }}</a>
+        </small>
+
     </form>
 
 @endsection

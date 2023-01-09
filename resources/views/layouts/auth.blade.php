@@ -18,8 +18,8 @@
     }
 
     .fa-google {
-        background: #dd4b39;
-        color: white;
+        background-color: #dd4b39 !important;
+        color: white !important;
     }
 </style>
 
