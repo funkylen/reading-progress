@@ -475,7 +475,7 @@
     "Recovery Code": "Код восстановления",
     "Regards": "С уважением",
     "Regenerate Recovery Codes": "Перегенерировать коды восстановления",
-    "Register": "Регистрация",
+    "Register": "Зарегистрироваться",
     "Reload": "Перезагрузить",
     "Remember me": "Запомнить меня",
     "Remember Me": "Запомнить меня",
@@ -752,5 +752,8 @@
     "Zimbabwe": "Зимбабве",
     "Zip / Postal Code": "Индекс",
     "Åland Islands": "Аландские острова",
-    "Suggestions for improvement": "Предложения по улучшению"
+    "Suggestions for improvement": "Предложения по улучшению",
+    "Read More!": "Читайте больше!",
+    "Reading Progress helps you track your reading progress. Add books, update reading progress. Keep track of how many books and pages you have read.": "Reading Progress поможет отслеживать ваш прогресс чтения. Добавляйте книги, обновляйте прогресс чтения. Следите за тем, сколько книг и страниц вы прочитали.",
+    "No account?": "Нет аккаунта?"
 }
