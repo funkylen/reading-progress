@@ -41,8 +41,8 @@
 
 <body>
 <header class="position-absolute w-100">
-    <nav class="navbar navbar-expand-md navbar-light bg-white p-4">
-        <div class="container">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light bg-white py-4">
             <a class="navbar-brand logo" href="{{ url('/') }}">
                 <svg width="250" viewBox="0 0 973 121" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -108,8 +108,8 @@
                     @endguest
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 </header>
 
 <main>
