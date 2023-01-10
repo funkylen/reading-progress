@@ -23,6 +23,35 @@ header {
     z-index: 1;
 }
 
+footer {
+    z-index: 1;
+}
+
 [x-cloak] {
     display: none;
+}
+
+
+// Another css file for book.show page
+
+.book > section {
+    max-height: calc(100vh - 10rem);
+}
+
+.list-group {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mask-image-container {
+    -webkit-mask-image: linear-gradient(to top, transparent 5%, black 50%);
+    mask-image: linear-gradient(to top, transparent 5%, black 50%);
+    height: 70%;
+}
+
+.mask-image-container > img {
+    object-fit: cover;
+    max-height: 100%;
+    width: 100%;
+    object-position: 100% 0;
 }

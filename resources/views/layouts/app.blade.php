@@ -28,10 +28,10 @@
     @endenv
 
     <style>
-        main {
-            padding-top: 6rem;
-            min-height: calc(100vh - 6rem);
-        }
+        /*main {*/
+        /*    padding-top: 6rem;*/
+        /*    min-height: calc(100vh - 6rem);*/
+        /*}*/
 
         .navbar-toggler:focus {
             box-shadow: none;
@@ -40,8 +40,8 @@
 </head>
 
 <body>
-<header class="position-absolute w-100">
-    <div class="container">
+<header class="w-100">
+    <div class="container-xl container-fluid">
         <nav class="navbar navbar-expand-md navbar-light bg-white py-4">
             <a class="navbar-brand logo" href="{{ url('/') }}">
                 <svg width="250" viewBox="0 0 973 121" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -113,14 +113,14 @@
 </header>
 
 <main>
-    <div class="container">
+    <div class="container-xl container-fluid">
         @include('flash::message')
         @yield('content')
     </div>
 </main>
 
 <footer class="border-top py-3 mt-auto">
-    <div class="container">
+    <div class="container-xl container-fluid">
         <div class="d-flex justify-content-between align-items-center">
             <span class="d-block text-muted">© {{ now()->year }} {{ config('app.name') }}</span>
             <a href="{{ route('feedback.create') }}"

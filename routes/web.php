@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+if (app()->environment('local')) {
+    Route::view('/books-new', 'books.new');
+}
+
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/auth/google/redirect', [LoginController::class, 'googleRedirect'])->name('auth.google.redirect');
