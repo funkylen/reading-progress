@@ -8,7 +8,30 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @mixin IdeHelperReadLog
+ * App\Models\ReadLog
+ *
+ * @property int $id
+ * @property int $pages_count
+ * @property int $book_id
+ * @property \Illuminate\Support\Carbon $date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Book $book
+ * @method static \Database\Factories\ReadLogFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ReadLog onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog whereBookId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog wherePagesCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReadLog whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|ReadLog withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ReadLog withoutTrashed()
  */
 class ReadLog extends Model
 {
