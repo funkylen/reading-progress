@@ -42,7 +42,7 @@
 <body>
 <header class="position-absolute w-100">
     <div class="container">
-        <nav class="navbar navbar-expand-md navbar-light py-4">
+        <nav class="navbar navbar-expand-md navbar-light bg-body py-4">
             <a class="navbar-brand logo" href="{{ url('/') }}">
                 <svg width="250" viewBox="0 0 973 121" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

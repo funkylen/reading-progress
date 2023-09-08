@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('form')
-    <form class="p-4 p-md-5 border rounded-3 shadow"
+    <form class="p-4 p-md-5 border rounded-3 shadow bg-light"
           data-bitwarden-watching="1" method="POST"
           action="{{ route('login') }}">
         @csrf

@@ -12,6 +12,18 @@ function autoChangeTheme() {
 
             document.getElementById("logo-path")
                 .setAttribute("fill", isDark ? "white" : "black")
+
+            if (isDark) {
+                for (const element of document.getElementsByClassName("bg-light")) {
+                    element.classList.remove("bg-light");
+                    element.classList.add("bg-dark");
+                }
+            } else {
+                for (const element of document.getElementsByClassName("bg-dark")) {
+                    element.classList.remove("bg-dark");
+                    element.classList.add("bg-light");
+                }
+            }
         }
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
