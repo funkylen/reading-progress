@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property int $start_page
  * @property int $pages_count
- * @property boolean $is_finished
+ * @property bool $is_finished
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -31,7 +31,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static Builder|Book newModelQuery()
  * @method static Builder|Book newQuery()
  * @method static \Illuminate\Database\Query\Builder|Book onlyTrashed()
- * @method static Builder|Book orderByLogActivity()
  * @method static Builder|Book query()
  * @method static Builder|Book whereAuthor($value)
  * @method static Builder|Book whereCreatedAt($value)
@@ -45,8 +44,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static Builder|Book whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|Book withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Book withoutTrashed()
- * @mixin \Eloquent
- * @method static Builder|Book list()
  */
 class Book extends Model
 {

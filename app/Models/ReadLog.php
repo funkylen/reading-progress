@@ -32,7 +32,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|ReadLog whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ReadLog withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ReadLog withoutTrashed()
- * @mixin \Eloquent
  */
 class ReadLog extends Model
 {

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Orchid\Screen\AsSource;
 
 /**
  * App\Models\Feedback
@@ -25,12 +24,10 @@ use Orchid\Screen\AsSource;
  * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Feedback extends Model
 {
     use HasFactory;
-    use AsSource;
 
     protected $fillable = [
         'name',
