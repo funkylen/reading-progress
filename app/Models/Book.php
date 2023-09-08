@@ -10,43 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Models\Book
- *
- * @property int $id
- * @property string $title
- * @property string $author
- * @property int $user_id
- * @property int $start_page
- * @property int $pages_count
- * @property boolean $is_finished
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ReadLog[] $readLogs
- * @property-read int|null $read_logs_count
- * @property-read \App\Models\User $user
- * @method static \Database\Factories\BookFactory factory(...$parameters)
- * @method static Builder|Book finished()
- * @method static Builder|Book inProgress()
- * @method static Builder|Book newModelQuery()
- * @method static Builder|Book newQuery()
- * @method static \Illuminate\Database\Query\Builder|Book onlyTrashed()
- * @method static Builder|Book orderByLogActivity()
- * @method static Builder|Book query()
- * @method static Builder|Book whereAuthor($value)
- * @method static Builder|Book whereCreatedAt($value)
- * @method static Builder|Book whereDeletedAt($value)
- * @method static Builder|Book whereId($value)
- * @method static Builder|Book whereIsFinished($value)
- * @method static Builder|Book wherePagesCount($value)
- * @method static Builder|Book whereStartPage($value)
- * @method static Builder|Book whereTitle($value)
- * @method static Builder|Book whereUpdatedAt($value)
- * @method static Builder|Book whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|Book withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Book withoutTrashed()
- * @mixin \Eloquent
- * @method static Builder|Book list()
+ * @mixin IdeHelperBook
  */
 class Book extends Model
 {
