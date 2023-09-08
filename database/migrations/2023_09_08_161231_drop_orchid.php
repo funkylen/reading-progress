@@ -17,8 +17,8 @@ return new class extends Migration {
         });
         Schema::dropIfExists('role_users');
         Schema::dropIfExists('roles');
-        Schema::dropIfExists('attachments');
         Schema::dropIfExists('attachmentable');
+        Schema::dropIfExists('attachments');
     }
 
     /**
