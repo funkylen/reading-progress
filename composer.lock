@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2bab2a52538522eb0dc5ce8b4b42e5c",
+    "content-hash": "1c91151f8dc1620bf361167d3ea80ec7",
     "packages": [
         {
             "name": "brick/math",
@@ -1690,6 +1690,7 @@
                 "issues": "https://github.com/LaravelCollective/html/issues",
                 "source": "https://github.com/LaravelCollective/html"
             },
+            "abandoned": "spatie/laravel-html",
             "time": "2022-02-08T21:02:54+00:00"
         },
         {
@@ -2847,6 +2848,7 @@
                     "type": "open_collective"
                 }
             ],
+            "abandoned": true,
             "time": "2021-11-18T22:25:19+00:00"
         },
         {
@@ -9894,8 +9896,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0.2"
+        "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
