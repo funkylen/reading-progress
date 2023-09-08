@@ -9,7 +9,7 @@
 ## Зависимости
 
 * PHP 8.1
-* Node 16
+* Node 18
 * Composer 2
 * SQLite 3
 

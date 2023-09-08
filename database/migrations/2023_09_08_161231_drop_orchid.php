@@ -15,10 +15,10 @@ return new class extends Migration {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['permissions']);
         });
-        Schema::dropIfExists('roles');
         Schema::dropIfExists('role_users');
-        Schema::drop('attachmentable');
-        Schema::drop('attachments');
+        Schema::dropIfExists('roles');
+        Schema::dropIfExists('attachments');
+        Schema::dropIfExists('attachmentable');
     }
 
     /**

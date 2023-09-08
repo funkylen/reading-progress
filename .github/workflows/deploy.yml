@@ -1,10 +1,6 @@
 name: Deploy
 
 on:
-  workflow_run:
-    workflows: ["PHP CI"]
-    types:
-      - completed
   push:
     branches: [ "main" ]
 
@@ -29,7 +25,7 @@ jobs:
       - name: Install npm dependencies
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: 'npm'
       - run: npm ci
       - run: npm run production
