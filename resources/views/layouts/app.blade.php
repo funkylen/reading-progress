@@ -11,16 +11,11 @@
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
     @include('components.meta')
-
-    <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}"></script>
+    @vite(['resources/js/app.js', 'resources/sass/app.scss'])
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     @env('production')
         <!-- Yandex Verification -->

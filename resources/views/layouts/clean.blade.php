@@ -12,11 +12,7 @@
 
     @include('components.meta')
 
-    <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}"></script>
-
-    <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @vite(['resources/js/app.js', 'resources/sass/app.scss'])
 
     <script src="//unpkg.com/alpinejs" defer></script>
 

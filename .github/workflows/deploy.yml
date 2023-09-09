@@ -28,7 +28,7 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm ci
-      - run: npm run production
+      - run: npm run build
 
       - name: Install Composer Dependecies
         uses: shivammathur/setup-php@v2
