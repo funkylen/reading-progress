@@ -16,6 +16,8 @@ class ReadLogTest extends TestCase
 
     private User $user;
     private Book $book;
+
+    /** @var Collection|ReadLog[] */
     private Collection $logs;
 
     protected function setUp(): void

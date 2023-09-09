@@ -12,6 +12,7 @@ class BookTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** @var Collection|Book[] */
     private Collection $books;
     private User $user;
 
