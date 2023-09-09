@@ -122,10 +122,14 @@
 
 <footer class="border-top py-3 mt-auto">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <span class="d-block text-muted">© {{ now()->year }} {{ config('app.name') }}</span>
-            <a href="{{ route('feedback.create') }}"
-               class="d-block btn btn-warning">{{ __('Suggestions for improvement') }}</a>
+        <div class="d-flex flex-column flex-xl-row justify-content-xl-between align-items-xl-center text-muted">
+            <span class="d-block">© {{ now()->year }} {{ config('app.name') }}</span>
+            <small class="d-block">
+                <span>
+                    {{ __('Suggestions for improvement') }}:
+                </span>
+                <a href="mailto:{{ config('mail.support') }}">{{ config('mail.support') }}</a>
+            </small>
         </div>
     </div>
 </footer>

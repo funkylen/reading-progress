@@ -115,4 +115,5 @@ return [
         ],
     ],
 
+    'support' => 'support@readingprogress.ru',
 ];
