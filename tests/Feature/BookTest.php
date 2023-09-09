@@ -25,7 +25,7 @@ class BookTest extends TestCase
         $this->actingAs($this->user);
     }
 
-    public function pagesProvider(): array
+    public static function pagesProvider(): array
     {
         return [
             ['books.index', false],

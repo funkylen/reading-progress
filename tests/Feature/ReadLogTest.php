@@ -38,7 +38,7 @@ class ReadLogTest extends TestCase
     }
 
 
-    public function pagesProvider(): array
+    public static function pagesProvider(): array
     {
         return [
             ['books.read_logs.create', false],
